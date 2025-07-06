@@ -1,49 +1,32 @@
+<!-- [Zwanski Playground Full Features HTML] -->
+<!-- Updated HTML with Meme Generator, Webcam, AI Detection, OCR, and more -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zwanski Playground</title>
-  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+  <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <link
-    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gradient-to-br from-blue-50 via-purple-100 to-yellow-50 min-h-screen">
   <header class="bg-white shadow py-4 mb-8">
-    <div
-      class="max-w-6xl mx-auto px-4 flex justify-between items-center"
-    >
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
       <h1 class="text-3xl font-extrabold text-indigo-600">Zwanski Playground</h1>
       <nav>
         <a href="#upload" class="text-gray-700 hover:text-indigo-600 mx-2">Upload</a>
-        <a href="#meme" class="text-gray-700 hover:text-green-600 mx-2"
-          >Meme Generator</a
-        >
-        <a href="#gallery" class="text-gray-700 hover:text-pink-600 mx-2"
-          >Gallery</a
-        >
-        <a href="#video" class="text-gray-700 hover:text-red-600 mx-2"
-          >Video Editor</a
-        >
-        <a href="#webcam" class="text-gray-700 hover:text-yellow-600 mx-2"
-          >Webcam Fun</a
-        >
-        <a href="#live-detect" class="text-gray-700 hover:text-blue-600 mx-2"
-          >Live AI Detect</a
-        >
-        <a href="#student-lab" class="text-gray-700 hover:text-teal-600 mx-2"
-          >Student Lab</a
-        >
-        <a href="#services" class="text-gray-700 hover:text-purple-600 mx-2"
-          >ZwanskiTech Services</a
-        >
+        <a href="#meme" class="text-gray-700 hover:text-green-600 mx-2">Meme Generator</a>
+        <a href="#gallery" class="text-gray-700 hover:text-pink-600 mx-2">Gallery</a>
+        <a href="#video" class="text-gray-700 hover:text-red-600 mx-2">Video Editor</a>
+        <a href="#webcam" class="text-gray-700 hover:text-yellow-600 mx-2">Webcam Fun</a>
+        <a href="#live-detect" class="text-gray-700 hover:text-blue-600 mx-2">Live AI Detect</a>
+        <a href="#student-lab" class="text-gray-700 hover:text-teal-600 mx-2">Student Lab</a>
+        <a href="#services" class="text-gray-700 hover:text-purple-600 mx-2">ZwanskiTech Services</a>
       </nav>
     </div>
   </header>
@@ -51,115 +34,175 @@
   <main class="max-w-6xl mx-auto px-4">
     <section id="upload" class="text-center py-12 border-t">
       <h2 class="text-2xl font-bold mb-4">📤 Cloudinary Image Upload</h2>
-      <p class="text-gray-600 mb-4">
-        Upload your images securely to Cloudinary and save to Supabase
-      </p>
-      <button
-        id="upload_widget"
-        class="bg-indigo-600 text-white px-4 py-2 rounded"
-      >
-        Upload Image
-      </button>
+      <p class="text-gray-600 mb-4">Upload your images securely to Cloudinary and save to Supabase</p>
+      <button id="upload_widget" class="bg-indigo-600 text-white px-4 py-2 rounded">Upload Image</button>
     </section>
 
     <section id="gallery" class="text-center py-12 border-t">
       <h2 class="text-2xl font-bold mb-4">🖼️ Zwanski Gallery</h2>
-      <p class="text-gray-600 mb-4">View recent uploads from the community</p>
-      <div
-        id="gallery-container"
-        class="grid grid-cols-2 md:grid-cols-3 gap-4 px-4"
-      ></div>
+      <div id="gallery-container" class="grid grid-cols-2 md:grid-cols-3 gap-4 px-4"></div>
     </section>
 
-    <!-- Existing sections... -->
+    <section id="meme" class="text-center py-12 border-t">
+      <h2 class="text-2xl font-bold mb-4">🖍️ Meme Generator</h2>
+      <input type="file" id="meme-upload" accept="image/*" class="mb-4">
+      <div>
+        <input type="text" id="top-text" placeholder="Top Text" class="border rounded p-2 mr-2">
+        <input type="text" id="bottom-text" placeholder="Bottom Text" class="border rounded p-2">
+        <button onclick="generateMeme()" class="ml-2 bg-green-600 text-white px-4 py-2 rounded">Generate</button>
+      </div>
+      <canvas id="meme-canvas" width="400" class="mt-4 mx-auto border"></canvas>
+    </section>
+
+    <section id="video" class="text-center py-12 border-t">
+      <h2 class="text-2xl font-bold mb-4">🎬 Video Editor</h2>
+      <p class="text-gray-600">Coming soon: trim, merge and filter with Cloudinary</p>
+    </section>
+
+    <section id="webcam" class="text-center py-12 border-t">
+      <h2 class="text-2xl font-bold mb-4">📸 Webcam Fun</h2>
+      <video id="webcam-video" autoplay playsinline class="mx-auto border"></video>
+      <canvas id="webcam-canvas" width="640" height="480" class="mt-2 mx-auto border"></canvas>
+      <button onclick="captureWebcam()" class="mt-2 bg-yellow-500 text-white px-4 py-2 rounded">Capture</button>
+    </section>
+
+    <section id="live-detect" class="text-center py-12 border-t">
+      <h2 class="text-2xl font-bold mb-4">🧠 Live AI Detection</h2>
+      <video id="detect-video" autoplay playsinline class="mx-auto border"></video>
+      <canvas id="detect-canvas" width="640" height="480" class="mt-2 mx-auto border"></canvas>
+      <button onclick="startDetection()" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Start Detection</button>
+    </section>
+
+    <section id="student-lab" class="text-center py-12 border-t">
+      <h2 class="text-2xl font-bold mb-4">👨‍🎓 Student Lab Tools</h2>
+      <div class="mb-4">
+        <input type="text" id="qr-text" placeholder="Text to QR Code" class="p-2 border rounded">
+        <button onclick="generateQR()" class="ml-2 bg-teal-600 text-white px-4 py-2 rounded">Generate QR</button>
+        <div id="qr-result" class="mt-2"></div>
+      </div>
+      <div class="mb-4">
+        <input type="file" id="ocr-image" accept="image/*" class="p-2">
+        <button onclick="runOCR()" class="ml-2 bg-indigo-600 text-white px-4 py-2 rounded">Image to Text</button>
+        <pre id="ocr-result" class="text-left bg-white mt-2 p-2 border rounded"></pre>
+      </div>
+    </section>
+
+    <section id="services" class="text-center py-12 border-t">
+      <h2 class="text-2xl font-bold mb-4">💼 ZwanskiTech Services</h2>
+      <p class="text-gray-600">Explore services provided by ZwanskiTech</p>
+    </section>
   </main>
 
-  <footer
-    class="text-center py-6 text-sm text-gray-500 mt-12 border-t"
-  >
-    Made with ❤️ by
-    <a href="https://zwanski.org" class="text-indigo-600 hover:underline"
-      >Zwanski.org</a
-    >
+  <footer class="text-center py-6 text-sm text-gray-500 mt-12 border-t">
+    Made with ❤️ by <a href="https://zwanski.org" class="text-indigo-600 hover:underline">Zwanski.org</a>
   </footer>
 
   <script>
-    const cloudName = 'dzi1xpa0v';
-    const uploadPreset = 'zwanski_upload';
+    const supabase = supabase.createClient('https://yeholyfgbqrekhoytrto.supabase.co', 'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaG9seWZnYnFyZWtob3l0cnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3NjkxODQsImV4cCI6MjA2NzM0NTE4NH0');
 
-    const supabaseUrl = 'https://yeholyfgbqrekhoytrto.supabase.co';
-    const supabaseKey =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaG9seWZnYnFyZWtob3l0cnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3NjkxODQsImV4cCI6MjA2NzM0NTE4NH0.AE4V0OqKzL0DGDVtd1cassuNLJyMR0FR7pRRUPJOru8';
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-    const myWidget = cloudinary.createUploadWidget(
-      {
-        cloudName: cloudName,
-        uploadPreset: uploadPreset,
-        folder: 'zwanski-playground',
-        sources: ['local', 'url', 'camera'],
-        multiple: false,
-        defaultSource: 'local',
-        styles: {
-          palette: {
-            window: '#f0f0f0',
-            sourceBg: '#ffffff',
-            windowBorder: '#90a0b3',
-            tabIcon: '#000000',
-            inactiveTabIcon: '#555a5f',
-            menuIcons: '#555a5f',
-            link: '#0078ff',
-            action: '#339933',
-            inProgress: '#0078ff',
-            complete: '#339933',
-            error: '#cc0000',
-            textDark: '#000000',
-            textLight: '#ffffff',
-          },
-          fonts: {
-            default: null,
-            "'Poppins', sans-serif": {
-              url: 'https://fonts.googleapis.com/css?family=Poppins',
-              active: true,
-            },
-          },
-        },
-      },
-      async (error, result) => {
-        if (!error && result && result.event === 'success') {
-          const imageUrl = result.info.secure_url;
-          console.log('Upload successful: ', imageUrl);
-          alert('Uploaded! Saved to gallery.');
-          await supabaseClient.from('uploads').insert([{ image_url: imageUrl }]);
-          fetchGallery();
-        }
+    const myWidget = cloudinary.createUploadWidget({
+      cloudName: 'dzi1xpa0v',
+      uploadPreset: 'zwanski_upload',
+      folder: 'zwanski-playground',
+      sources: ['local', 'url', 'camera']
+    }, async (error, result) => {
+      if (!error && result && result.event === "success") {
+        const imageUrl = result.info.secure_url;
+        await supabase.from('uploads').insert([{ image_url: imageUrl }]);
+        fetchGallery();
       }
-    );
+    });
 
-    document
-      .getElementById('upload_widget')
-      .addEventListener('click', function () {
-        myWidget.open();
-      }, false);
+    document.getElementById("upload_widget").addEventListener("click", () => myWidget.open());
 
     async function fetchGallery() {
-      const { data, error } = await supabaseClient
-        .from('uploads')
-        .select('*')
-        .order('created_at', { ascending: false });
+      const { data } = await supabase.from('uploads').select('*').order('created_at', { ascending: false });
       const container = document.getElementById('gallery-container');
       container.innerHTML = '';
-      if (data) {
-        data.forEach((item) => {
-          const img = document.createElement('img');
-          img.src = item.image_url;
-          img.className = 'w-full h-auto rounded shadow';
-          container.appendChild(img);
-        });
-      }
+      data?.forEach(item => {
+        const img = document.createElement('img');
+        img.src = item.image_url;
+        img.className = 'w-full h-auto rounded shadow';
+        container.appendChild(img);
+      });
     }
 
     fetchGallery();
+
+    function generateMeme() {
+      const canvas = document.getElementById('meme-canvas');
+      const ctx = canvas.getContext('2d');
+      const top = document.getElementById('top-text').value;
+      const bottom = document.getElementById('bottom-text').value;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+          ctx.font = "40px Impact";
+          ctx.fillStyle = "white";
+          ctx.strokeStyle = "black";
+          ctx.lineWidth = 2;
+          ctx.textAlign = "center";
+          ctx.fillText(top, canvas.width/2, 50);
+          ctx.strokeText(top, canvas.width/2, 50);
+          ctx.fillText(bottom, canvas.width/2, canvas.height - 20);
+          ctx.strokeText(bottom, canvas.width/2, canvas.height - 20);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(document.getElementById('meme-upload').files[0]);
+    }
+
+    function captureWebcam() {
+      const video = document.getElementById('webcam-video');
+      const canvas = document.getElementById('webcam-canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    }
+
+    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+      document.getElementById('webcam-video').srcObject = stream;
+      document.getElementById('detect-video').srcObject = stream;
+    });
+
+    async function startDetection() {
+      const video = document.getElementById('detect-video');
+      const canvas = document.getElementById('detect-canvas');
+      const ctx = canvas.getContext('2d');
+      const model = await cocoSsd.load();
+      function detect() {
+        model.detect(video).then(predictions => {
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          predictions.forEach(pred => {
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(...pred.bbox);
+            ctx.fillText(pred.class, pred.bbox[0], pred.bbox[1]);
+          });
+        });
+        requestAnimationFrame(detect);
+      }
+      detect();
+    }
+
+    function generateQR() {
+      const text = document.getElementById("qr-text").value;
+      const result = document.getElementById("qr-result");
+      result.innerHTML = '';
+      QRCode.toCanvas(document.createElement("canvas"), text, function(err, canvas) {
+        if (!err) result.appendChild(canvas);
+      });
+    }
+
+    function runOCR() {
+      const image = document.getElementById("ocr-image").files[0];
+      Tesseract.recognize(image, 'eng').then(({ data: { text } }) => {
+        document.getElementById("ocr-result").textContent = text;
+      });
+    }
   </script>
 </body>
 </html>
