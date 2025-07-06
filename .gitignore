@@ -1,0 +1,15 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Node / npm stuff
+node_modules/
+.env
+
+# Build output
+dist/
+out/
+*.log
+
+# Vercel
+.vercel
