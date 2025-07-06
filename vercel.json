@@ -1,0 +1,8 @@
+{
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_SUPABASE_URL": "https://yeholyfgbqrekhoytrto.supabase.co",
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllaG9seWZnYnFyZWtob3l0cnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3NjkxODQsImV4cCI6MjA2NzM0NTE4NH0.AE4V0OqKzL0DGDVtd1cassuNLJyMR0FR7pRRUPJOru8"
+    }
+  }
+}
